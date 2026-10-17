@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#020a16">
+<title>J.A.R.V.I.S.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020a16;--cyan:#3fe3ff;--blue:#1e7dff;--text:#e8f6ff;--muted:#7fa3bd;--line:#0f3d73;--title:"Michroma","Orbitron","Eurostile",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 38%,#071d3a 0,#030d1d 45%,#020a16 100%) fixed;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 15svh) 20px calc(env(safe-area-inset-bottom) + 11svh);overflow:hidden}
+.cn{position:absolute;width:15vw;max-width:90px;height:auto;pointer-events:none}.tl{left:3vw;top:0}.tr{right:3vw;top:0;transform:scaleX(-1)}.bl{left:3vw;bottom:0;transform:scaleY(-1)}.br{right:3vw;bottom:0;transform:scale(-1,-1)}
+h1{margin:0;font-family:var(--title);font-weight:400;font-size:min(8.6vw,58px);letter-spacing:.14em;text-align:center;color:#f2fbff;text-shadow:0 0 18px #3fe3ff55;white-space:nowrap}
+.sub{margin:3.2vw 0 0;font-size:min(2.55vw,14px);letter-spacing:.27em;white-space:nowrap;color:var(--cyan);text-align:center;text-transform:uppercase}
+#orb{width:min(78vw,380px);aspect-ratio:1;cursor:pointer;filter:drop-shadow(0 0 22px #1e7dff88);-webkit-tap-highlight-color:transparent}
+#orb svg{width:100%;height:100%;overflow:visible}
+.r1{transform-origin:200px 200px;animation:spin 22s linear infinite}.r2{transform-origin:200px 200px;animation:spin 34s linear infinite reverse}.r3{transform-origin:200px 200px;animation:spin 60s linear infinite}
+.star{transform-origin:200px 200px;animation:pulse 3.4s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{transform:scale(1.18);opacity:.8}}
+.statbox{text-align:center}.st{font-size:min(3.6vw,17px);letter-spacing:.34em;color:var(--cyan);text-transform:uppercase}
+.bar{width:44vw;max-width:260px;height:1px;background:#1a5aa5;margin:3.5vw auto 0;position:relative;opacity:.9}.bar:after{content:"";position:absolute;left:50%;top:-1px;width:18%;height:3px;margin-left:-9%;background:#18b8ff;box-shadow:0 0 8px #18b8ff;animation:slide 3s ease-in-out infinite}
+@keyframes slide{50%{transform:translateX(120%)}0%,100%{transform:translateX(-120%)}}
+.hint{margin-top:14px;font-size:10px;letter-spacing:.3em;color:#4f7aa0;animation:blink 2s infinite}@keyframes blink{50%{opacity:.3}}
+#console{max-width:720px;margin:auto;padding:14px 14px 30px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:8px 4px 14px}.top b{font-family:var(--title);font-weight:400;letter-spacing:.18em;font-size:15px}.top .st{font-size:10px;letter-spacing:.22em;flex:1;text-align:center}
+.panel{background:#04122acc;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;box-shadow:0 0 22px #1e7dff1a,inset 0 0 18px #1e7dff0d}
+.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.label{font-size:10px;color:var(--cyan);letter-spacing:.22em;margin-bottom:7px;display:block;opacity:.85}
+input,textarea,select{width:100%;background:#020913;color:var(--text);border:1px solid #14437c;border-radius:10px;padding:12px;font:inherit;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 10px #3fe3ff33}
+button{border:1px solid #1a6fd0;background:linear-gradient(135deg,#07284f,#04142b);color:var(--cyan);border-radius:10px;padding:11px 13px;font-weight:650;cursor:pointer;letter-spacing:.04em}button:active{transform:scale(.97)}
+button.primary{background:linear-gradient(135deg,#0aa6d8,#1e5fe0);color:#fff;border-color:#5fe6ff;box-shadow:0 0 14px #1e9dff55}button:disabled{opacity:.5}
+.tiny{font-size:11px;color:var(--muted);line-height:1.5}.chat{height:300px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:2px}
+.msg{padding:11px 12px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.5;max-width:94%}.bot{align-self:flex-start;background:#071f3e;border:1px solid #124a8c}.user{align-self:flex-end;background:#0c3a74;border:1px solid #2a7fd6}
+.msg small{display:block;color:var(--cyan);font-size:9px;letter-spacing:.22em;margin-bottom:4px;opacity:.8}
+.composer{display:flex;gap:8px;margin-top:10px}.composer textarea{resize:vertical;min-height:48px;max-height:130px}.composer button{min-width:54px}
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tools button{font-size:12px;padding:12px 5px}
+.foot{text-align:center;color:#4f7aa0;font-size:10px;letter-spacing:.1em;padding:18px 8px}
+</style></head><body>
+<section class="hero"><svg class="cn tl" viewBox="0 0 100 160"><polyline points="1,160 1,34 34,1 100,1" fill="none" stroke="#1a6fd0" stroke-width="1.2" opacity=".8"/><circle cx="14" cy="48" r="2" fill="#1e7dff"/><circle cx="14" cy="60" r="2" fill="#1e7dff"/><circle cx="14" cy="72" r="2" fill="#1e7dff"/></svg><svg class="cn tr" viewBox="0 0 100 160"><polyline points="1,160 1,34 34,1 100,1" fill="none" stroke="#1a6fd0" stroke-width="1.2" opacity=".8"/><circle cx="14" cy="48" r="2" fill="#1e7dff"/><circle cx="14" cy="60" r="2" fill="#1e7dff"/><circle cx="14" cy="72" r="2" fill="#1e7dff"/></svg><svg class="cn bl" viewBox="0 0 100 160"><polyline points="1,160 1,34 34,1 100,1" fill="none" stroke="#1a6fd0" stroke-width="1.2" opacity=".8"/><circle cx="14" cy="48" r="2" fill="#1e7dff"/><circle cx="14" cy="60" r="2" fill="#1e7dff"/><circle cx="14" cy="72" r="2" fill="#1e7dff"/></svg><svg class="cn br" viewBox="0 0 100 160"><polyline points="1,160 1,34 34,1 100,1" fill="none" stroke="#1a6fd0" stroke-width="1.2" opacity=".8"/><circle cx="14" cy="48" r="2" fill="#1e7dff"/><circle cx="14" cy="60" r="2" fill="#1e7dff"/><circle cx="14" cy="72" r="2" fill="#1e7dff"/></svg>
+<div><h1>J.A.R.V.I.S.</h1><p class="sub">Just a rather very intelligent system</p></div>
+<div id="orb" role="button" aria-label="Abrir consola"><svg viewBox="0 0 400 400">
+<defs><filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="s"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#7defff"/><stop offset="1" stop-color="#1e9dff"/></radialGradient></defs>
+<g stroke="#1a6fd0" stroke-width="1" opacity=".8"><line x1="200" y1="0" x2="200" y2="70"/><line x1="200" y1="330" x2="200" y2="400"/><line x1="0" y1="200" x2="70" y2="200"/><line x1="330" y1="200" x2="400" y2="200"/></g>
+<circle cx="200" cy="200" r="190" fill="none" stroke="#1a5aa5" stroke-width="1" opacity=".5"/>
+<circle cx="200" cy="200" r="178" fill="none" stroke="#1e8cff" stroke-width="1" opacity=".6"/>
+<g class="r1" filter="url(#g)" fill="none" stroke-linecap="butt"><circle cx="200" cy="200" r="158" stroke="#12b8ff" stroke-width="6" stroke-dasharray="230 763" /><circle cx="200" cy="200" r="158" stroke="#1e7dff" stroke-width="6" stroke-dasharray="230 763" stroke-dashoffset="-500"/><circle cx="200" cy="200" r="158" stroke="#0e5fd0" stroke-width="5" stroke-dasharray="70 923" stroke-dashoffset="-330"/></g>
+<g class="r2" fill="none"><circle cx="200" cy="200" r="132" stroke="#2a8fff" stroke-width="12" stroke-dasharray="1.6 4.4" opacity=".75"/></g>
+<g class="r3" fill="none"><circle cx="200" cy="200" r="112" stroke="#3fe3ff" stroke-width="1.5" stroke-dasharray="520 184" filter="url(#g)"/></g>
+<circle cx="200" cy="200" r="104" fill="none" stroke="#1ab8ff" stroke-width="1.5" opacity=".7"/>
+<g class="star" filter="url(#g)"><path d="M200 150 Q205 195 250 200 Q205 205 200 250 Q195 205 150 200 Q195 195 200 150Z" fill="url(#s)"/></g>
+</svg></div>
+<div class="statbox"><div class="st" id="status">SISTEMA EN ESPERA</div><div class="bar"></div><div class="hint">TOCA EL ANILLO ▾</div></div>
+</section>
+<main id="console">
+<div class="top"><b>J.A.R.V.I.S.</b><span class="st">SISTEMA EN ESPERA</span><button id="up" type="button" style="padding:6px 10px">↑</button></div>
+<section class="panel">
+<label class="label" for="apikey">CLAVE API DE GEMINI</label>
+<div class="row"><input id="apikey" type="password" autocomplete="off" placeholder="Pega aquí tu nueva clave API"><button id="showKey" type="button">Ver</button></div>
+<div class="row" style="margin-top:9px"><div style="flex:1"><label class="label" for="model">MODELO</label><select id="model"><option value="gemini-3.8-flash">Gemini 3.8 Flash</option><option value="gemini-3.7-flash">Gemini 3.7 Flash</option><option value="gemini-3.5-flash">Gemini 3.5 Flash</option></select></div><button id="saveKey" type="button">Usar clave</button></div>
+<p class="tiny">La clave solo se mantiene mientras la app está abierta; no se guarda en el teléfono. Las solicitudes usan tu cuota de Google.</p>
+</section>
+<section class="panel">
+<div class="chat" id="chat" aria-live="polite"><div class="msg bot"><small>J.A.R.V.I.S.</small>Buenas. Sistema inicializado. Introduce tu clave API y pulsa “Usar clave”. Después podremos conversar.</div></div>
+<div class="composer"><textarea id="prompt" placeholder="Escribe una orden o pregunta..." rows="1"></textarea><button id="mic" title="Dictar por voz">🎙️</button><button id="send" class="primary">➤</button></div>
+</section>
+<section class="panel"><span class="label">MÓDULOS RÁPIDOS</span><div class="tools">
+<button data-prompt="Preséntate como JARVIS y dime qué puedes hacer.">◉ Estado</button>
+<button data-prompt="Ayúdame a organizar mis tareas de hoy en una lista sencilla.">▤ Tareas</button>
+<button data-prompt="Enséñame un dato científico interesante y explícamelo fácil.">✧ Ciencia</button>
+<button data-prompt="Dame una idea para un proyecto tecnológico que pueda empezar con presupuesto cero.">⌘ Proyecto</button>
+<button id="voiceToggle">🔊 Voz: activada</button><button id="clear">⌫ Limpiar chat</button>
+</div></section>
+<div class="foot">PROTOTIPO PERSONAL · No controla el móvil ni accede a tus archivos</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let apiKey="", busy=false, voiceOn=true, history=[];
+function status(t){document.querySelectorAll(".st").forEach(e=>e.textContent=t)}
+function addMsg(role,text){const d=document.createElement("div");d.className="msg "+(role==="user"?"user":"bot");const s=document.createElement("small");s.textContent=role==="user"?"TÚ":"J.A.R.V.I.S.";d.appendChild(s);d.appendChild(document.createTextNode(text));$("chat").appendChild(d);$("chat").scrollTop=$("chat").scrollHeight;return d}
+function speak(text){if(!voiceOn||!("speechSynthesis"in window))return;window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang="es-ES";u.rate=1.02;window.speechSynthesis.speak(u)}
+$("showKey").onclick=()=>{$("apikey").type=$("apikey").type==="password"?"text":"password";$("showKey").textContent=$("apikey").type==="password"?"Ver":"Ocultar"};
+$("saveKey").onclick=()=>{apiKey=$("apikey").value.trim();if(!apiKey){status("FALTA LA CLAVE API");addMsg("bot","Pega tu nueva clave API de Gemini. No uses la que compartiste antes: revócala primero.");return}status("CLAVE LISTA · NO GUARDADA");addMsg("bot","Clave disponible solo en esta sesión. Puedes hacerme una pregunta.");};
+async function send(text){text=(text||$("prompt").value).trim();if(!text||busy)return;if(!apiKey){addMsg("bot","Primero introduce tu nueva clave API y pulsa “Usar clave”.");return}
+$("prompt").value="";addMsg("user",text);history.push({role:"user",parts:[{text}]});busy=true;$("send").disabled=true;status("PROCESANDO SOLICITUD...");
+const wait=addMsg("bot","Un momento, estoy pensando...");
+try{
+ const model=$("model").value;
+ const system="Eres J.A.R.V.I.S., un asistente personal inspirado en la interfaz de ciencia ficción de Tony Stark. Habla en español natural, amable, inteligente y conciso. No afirmes que puedes controlar el teléfono, abrir aplicaciones o ver datos que no se te han proporcionado. Si te piden una acción externa que no puedes ejecutar, explícalo y ofrece pasos seguros. El usuario puede ser menor: mantén respuestas apropiadas para su edad.";
+ const contents=[{role:"user",parts:[{text:"Instrucciones de personalidad: "+system}]} ,...history.slice(-16)];
+ const res=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(model)+":generateContent?key="+encodeURIComponent(apiKey),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents,generationConfig:{temperature:0.8,maxOutputTokens:900}})});
+ const data=await res.json();
+ if(!res.ok)throw new Error(data?.error?.message||("Error HTTP "+res.status));
+ const answer=data?.candidates?.[0]?.content?.parts?.map(p=>p.text||"").join("").trim()||"No recibí una respuesta de texto.";
+ wait.lastChild.textContent=answer;history.push({role:"model",parts:[{text:answer}]});status("SISTEMA EN LÍNEA");speak(answer);
+}catch(e){wait.lastChild.textContent="No pude conectarme con Gemini: "+e.message+"\nRevisa la conexión, el nombre del modelo y que la clave esté activa.";status("ERROR DE CONEXIÓN")}
+finally{busy=false;$("send").disabled=false}
+}
+$("send").onclick=()=>send();
+$("prompt").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+document.querySelectorAll("[data-prompt]").forEach(b=>b.onclick=()=>{ $("prompt").value=b.dataset.prompt;send(b.dataset.prompt)});
+$("voiceToggle").onclick=()=>{voiceOn=!voiceOn;$("voiceToggle").textContent=voiceOn?"🔊 Voz: activada":"🔇 Voz: apagada";if(!voiceOn&&"speechSynthesis"in window)window.speechSynthesis.cancel()};
+$("clear").onclick=()=>{history=[];$("chat").innerHTML="";addMsg("bot","Conversación limpiada. ¿En qué puedo ayudarte?");status("SISTEMA EN LÍNEA")};
+$("mic").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){addMsg("bot","El dictado por voz no está disponible en este navegador. Puedes escribir tu mensaje y usar la lectura en voz alta.");return}const rec=new SR();rec.lang="es-PE";rec.interimResults=false;status("ESCUCHANDO...");rec.onresult=e=>{$("prompt").value=e.results[0][0].transcript;status("VOZ RECONOCIDA")};rec.onerror=()=>status("NO SE PUDO RECONOCER LA VOZ");rec.onend=()=>{if(document.querySelector(".st").textContent==="ESCUCHANDO...")status("SISTEMA EN LÍNEA")};rec.start()};
+
+function goConsole(){document.getElementById("console").scrollIntoView({behavior:"smooth"})}
+document.getElementById("orb").onclick=goConsole;
+document.getElementById("up").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+</script></body></html>
