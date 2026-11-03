@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>JARVIS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="jarvis-icon.svg" />
+</head>
+<body>
+  <!-- ============ HOME SCREEN ============ -->
+  <div id="home-screen" class="screen active">
+    <header class="top-bar">
+      <div class="status-left">
+        <span class="time" id="current-time">--:--</span>
+      </div>
+      <div class="status-right">
+        <span class="battery">93%</span>
+      </div>
+    </header>
+
+    <div class="home-content">
+      <h1 class="app-title">J A R V I S</h1>
+      
+      <div class="greeting-card">
+        <p class="greeting">Hola, <span id="user-name">Señor</span> 👋</p>
+        <p class="greeting-sub">¿En qué puedo ayudarte hoy?</p>
+      </div>
+
+      <!-- Orb central -->
+      <div class="orb-container">
+        <div class="orb">
+          <div class="orb-ring ring-1"></div>
+          <div class="orb-ring ring-2"></div>
+          <div class="orb-ring ring-3"></div>
+          <div class="orb-core">
+            <span class="orb-letter">J</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categorías -->
+      <div class="categories-grid">
+        <button class="cat-btn" data-category="chat">
+          <div class="cat-icon">💬</div>
+          <span>Chat</span>
+        </button>
+        <button class="cat-btn" data-category="estudio">
+          <div class="cat-icon">📚</div>
+          <span>Estudio</span>
+        </button>
+        <button class="cat-btn" data-category="juegos">
+          <div class="cat-icon">🎮</div>
+          <span>Juegos</span>
+        </button>
+        <button class="cat-btn" data-category="deportes">
+          <div class="cat-icon">⚽</div>
+          <span>Deportes</span>
+        </button>
+        <button class="cat-btn" data-category="coches">
+          <div class="cat-icon">🚗</div>
+          <span>Coches</span>
+        </button>
+        <button class="cat-btn" data-category="vida">
+          <div class="cat-icon">🧭</div>
+          <span>Vida diaria</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CHAT SCREEN ============ -->
+  <div id="chat-screen" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="showScreen('home')">←</button>
+      <div class="header-info">
+        <h2>Chat con JARVIS</h2>
+        <p class="model-label">Modelo: <span id="current-model">gemini-2.0-flash</span></p>
+      </div>
+    </header>
+
+    <div class="chat-messages" id="chat-messages">
+      <!-- Mensajes se insertan aquí -->
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" />
+      <button id="send-btn" class="send-btn">Enviar</button>
+    </div>
+  </div>
+
+  <!-- ============ HERRAMIENTAS SCREEN ============ -->
+  <div id="tools-screen" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="showScreen('home')">←</button>
+      <div class="header-info">
+        <h2>🛠️ Herramientas</h2>
+        <p class="subtitle">Todo en un solo lugar</p>
+      </div>
+    </header>
+
+    <div class="tools-list">
+      <button class="tool-item" data-tool="calculator">
+        <div class="tool-icon">🧮</div>
+        <div class="tool-text">
+          <strong>Calculadora</strong>
+          <span>Rápida y sencilla</span>
+        </div>
+      </button>
+      <button class="tool-item" data-tool="notes">
+        <div class="tool-icon">📝</div>
+        <div class="tool-text">
+          <strong>Notas</strong>
+          <span>Guarda tus ideas</span>
+        </div>
+      </button>
+      <button class="tool-item" data-tool="timer">
+        <div class="tool-icon">⏱️</div>
+        <div class="tool-text">
+          <strong>Temporizador</strong>
+          <span>Enfócate en lo importante</span>
+        </div>
+      </button>
+      <button class="tool-item" data-tool="translator">
+        <div class="tool-icon">🌐</div>
+        <div class="tool-text">
+          <strong>Traductor</strong>
+          <span>Sin barreras de idioma</span>
+        </div>
+      </button>
+      <button class="tool-item" data-tool="ideas">
+        <div class="tool-icon">💡</div>
+        <div class="tool-text">
+          <strong>Generador de ideas</strong>
+          <span>Inspírate y crea</span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ SETTINGS SCREEN ============ -->
+  <div id="settings-screen" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="showScreen('home')">←</button>
+      <div class="header-info">
+        <h2>⚙️ Configuración</h2>
+        <p class="subtitle">Personaliza tu experiencia</p>
+      </div>
+    </header>
+
+    <div class="settings-content">
+      <div class="setting-group">
+        <label>Nombre de usuario</label>
+        <input type="text" id="setting-name" value="Señor" placeholder="Tu nombre" />
+      </div>
+
+      <div class="setting-group">
+        <label>API Key (Gemini)</label>
+        <input type="password" id="setting-apikey" placeholder="Pega tu API Key aquí" />
+        <p class="hint">Consigue tu clave gratis en <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>. Se guarda solo en este dispositivo.</p>
+      </div>
+
+      <div class="setting-group">
+        <label>Modelo</label>
+        <select id="setting-model">
+          <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+          <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+          <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+        </select>
+      </div>
+
+      <div class="setting-toggle">
+        <span>Respuestas por voz</span>
+        <label class="switch">
+          <input type="checkbox" id="setting-voice" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-toggle">
+        <span>Memoria</span>
+        <label class="switch">
+          <input type="checkbox" id="setting-memory" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <p class="memory-status">Recuerdos: <span id="memory-count">ninguno</span></p>
+
+      <div class="settings-actions">
+        <button class="btn-primary" onclick="saveSettings()">Guardar</button>
+        <button class="btn-secondary" onclick="clearChat()">Borrar chat</button>
+        <button class="btn-secondary" onclick="showAbout()">Acerca de</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COMMAND CENTER (Dashboard estilo JARVIS avanzado) ============ -->
+  <div id="command-screen" class="screen">
+    <div class="command-layout">
+      <aside class="sidebar">
+        <div class="logo-area">
+          <div class="mini-orb">J</div>
+          <span>JARVIS</span>
+        </div>
+        <nav class="side-nav">
+          <button class="nav-item active" data-view="overview">Command Center</button>
+          <button class="nav-item" data-view="agents">Agents</button>
+          <button class="nav-item" data-view="memory">Memory</button>
+          <button class="nav-item" data-view="tools">Tools & Skills</button>
+        </nav>
+        <div class="system-status">
+          <div class="status-item">
+            <span class="dot green"></span> System Optimal
+          </div>
+        </div>
+      </aside>
+
+      <main class="command-main">
+        <header class="command-header">
+          <div>
+            <h1>JARVIS AI CORE</h1>
+            <p class="version">v1.0.0 · Online</p>
+          </div>
+          <div class="header-right">
+            <span id="command-time"></span>
+          </div>
+        </header>
+
+        <div class="dashboard-grid">
+          <div class="card ai-core-card">
+            <h3>AI CORE OVERVIEW</h3>
+            <div class="core-stats">
+              <div class="stat">
+                <span class="stat-label">Memory</span>
+                <span class="stat-value" id="mem-stat">0 Stored</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Voice</span>
+                <span class="stat-value online">Online</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Agents</span>
+                <span class="stat-value">2 Running</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">System</span>
+                <span class="stat-value online">Optimal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card orb-card">
+            <div class="big-orb">
+              <div class="orb-glow"></div>
+              <span>JARVIS</span>
+              <small>AI CORE</small>
+            </div>
+          </div>
+
+          <div class="card agents-card">
+            <h3>ACTIVE AGENTS</h3>
+            <div class="agents-list">
+              <div class="agent">
+                <span class="agent-icon">💻</span>
+                <span>Coding Agent</span>
+                <span class="badge active">Active</span>
+              </div>
+              <div class="agent">
+                <span class="agent-icon">🔍</span>
+                <span>Research Agent</span>
+                <span class="badge standby">Standby</span>
+              </div>
+              <div class="agent">
+                <span class="agent-icon">🧠</span>
+                <span>Memory Agent</span>
+                <span class="badge standby">Standby</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card monitor-card">
+            <h3>SYSTEM MONITOR</h3>
+            <div class="gauges">
+              <div class="gauge">
+                <div class="gauge-circle" data-value="15">
+                  <span>15%</span>
+                </div>
+                <small>CPU</small>
+              </div>
+              <div class="gauge">
+                <div class="gauge-circle" data-value="54">
+                  <span>54%</span>
+                </div>
+                <small>RAM</small>
+              </div>
+              <div class="gauge">
+                <div class="gauge-circle" data-value="40">
+                  <span>40%</span>
+                </div>
+                <small>Disk</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM NAV ============ -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-screen="home">
+      <span class="nav-icon">🏠</span>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-btn" data-screen="chat">
+      <span class="nav-icon">💬</span>
+      <span>Chat</span>
+    </button>
+    <button class="nav-btn mic-btn" id="mic-btn">
+      <span class="nav-icon">🎙️</span>
+    </button>
+    <button class="nav-btn" data-screen="tools">
+      <span class="nav-icon">🧰</span>
+      <span>Herramientas</span>
+    </button>
+    <button class="nav-btn" data-screen="settings">
+      <span class="nav-icon">⚙️</span>
+      <span>Ajustes</span>
+    </button>
+  </nav>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
